@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.title-clamp {
+  font-size: clamp(20px, 6vw, 70px);
+  line-height: 1;
+}
