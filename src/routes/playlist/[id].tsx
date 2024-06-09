@@ -1,5 +1,5 @@
 import { Title } from "@solidjs/meta";
-import { RouteSectionProps } from "@solidjs/router";
+import { RouteSectionProps, createAsync } from "@solidjs/router";
 import DotsButton from "~/components/DotsButton";
 import InlineArtists from "~/components/InlineArtists";
 import LikeButton from "~/components/LikeButton";
@@ -7,10 +7,10 @@ import MusicsTable from "~/components/MusicsTable";
 import PageHeader from "~/components/PageHeader";
 import PlayButton from "~/components/PlayButton";
 import { Layout } from "~/layouts/Layout"
-import { allPlaylists } from "~/lib/data"
+import { getPlaylistById } from "~/lib/api";
 
 export default function Playlist(props: RouteSectionProps) {
-  const playlist = () => allPlaylists.find((playlist) => playlist.id === props.params.id);
+  const playlist = createAsync(() => getPlaylistById(props.params.id))
 
   return (
     <Layout>

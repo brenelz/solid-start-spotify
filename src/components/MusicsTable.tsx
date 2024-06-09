@@ -1,10 +1,12 @@
 import { FaSolidMusic, FaSolidTimeline } from "solid-icons/fa";
 import { Index } from "solid-js";
-import { songs } from "~/lib/data";
 import InlineArtists from "./InlineArtists";
 import { WiTime3 } from "solid-icons/wi";
+import { createAsync } from "@solidjs/router";
+import { getSongs } from "~/lib/api";
 
 export default function MusicsTable() {
+  const songs = createAsync(() => getSongs());
   return (
     <table class="table-auto text-left min-w-full divide-y-2 divide-gray-500/30">
       <thead>
@@ -18,7 +20,7 @@ export default function MusicsTable() {
         </tr>
       </thead>
       <tbody>
-        <Index each={songs}>
+        <Index each={songs()}>
           {(song, index) => (
             <tr class="group hover:bg-gray-500/20">
               <td class="whitespace-nowrap px-4 py-2">{index + 1}</td>

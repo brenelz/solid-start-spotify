@@ -1,4 +1,3 @@
-import { For, Index } from "solid-js"
 import { Playlist } from "~/lib/data"
 import PureInlineArtists from "../PureInlineArtists"
 

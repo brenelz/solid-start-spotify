@@ -1,12 +1,14 @@
 import { Title } from "@solidjs/meta";
+import { createAsyncStore } from "@solidjs/router";
 import GreeetingTitle from "~/components/GreetingTitle";
 import PageHeader from "~/components/PageHeader";
 import PlaylistCard from "~/components/PlaylistCard";
 import PlaylistItemCard from "~/components/PlaylistItemCard";
 import { Layout } from "~/layouts/Layout";
-import { morePlaylists, playlists } from "~/lib/data";
+import { getPlaylists } from "~/lib/api";
 
 export default function Home() {
+  const data = createAsyncStore(() => getPlaylists());
   return (
     <Layout>
       <Title>Home | SolidStart Spotify</Title>
@@ -21,7 +23,7 @@ export default function Home() {
           <div
             class="grid gap-y-4 gap-x-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 mt-6"
           >
-            {playlists.map((playlist) => <PlaylistItemCard playlist={playlist} />)}
+            {data()?.playlists.map((playlist) => <PlaylistItemCard playlist={playlist} />)}
           </div>
         </div>
         <div
@@ -32,7 +34,7 @@ export default function Home() {
       <div class="px-6 relative z-10 mt-4">
         <h2 class="text-2xl font-bold">Made for you</h2>
         <div class="flex flex-wrap mt-6 gap-4">
-          {morePlaylists.map((playlist) => <PlaylistCard playlist={playlist} />)}
+          {data()?.morePlaylists.map((playlist) => <PlaylistCard playlist={playlist} />)}
         </div>
       </div>
     </Layout>

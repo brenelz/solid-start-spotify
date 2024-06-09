@@ -1,11 +1,12 @@
-import { sidebarPlaylists } from "~/lib/data";
 import SideMenuItem from "./SideMenuItem";
 import SideItemCard from "./SideItemCard";
 import { AiOutlineHome, AiOutlineSearch } from "solid-icons/ai";
-import { FaSolidMusic } from "solid-icons/fa";
 import { BsCollectionPlay } from "solid-icons/bs";
+import { createAsync } from "@solidjs/router";
+import { getSidebarPlaylists } from "~/lib/api";
 
 export default function SideMenu() {
+  const sidebarPlaylists = createAsync(() => getSidebarPlaylists());
   return (
     <div class="flex flex-col flex-1 gap-2">
       <div class="bg-zinc-900 rounded-lg">
@@ -23,7 +24,7 @@ export default function SideMenu() {
           </SideMenuItem>
         </ul>
         <ul class="pl-2">
-          {sidebarPlaylists.map((playlist) => <SideItemCard playlist={playlist} />)}
+          {sidebarPlaylists()?.map((playlist) => <SideItemCard playlist={playlist} />)}
         </ul>
       </div>
     </div>

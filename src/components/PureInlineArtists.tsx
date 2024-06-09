@@ -1,5 +1,4 @@
 import { Index } from "solid-js"
-import { Playlist } from "~/lib/data"
 
 type PureInlineArtistsProps = {
     artists: string[]
