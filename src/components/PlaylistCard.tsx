@@ -1,14 +1,12 @@
 import { Playlist } from "~/lib/data"
 import PlayButton from "./PlayButton"
 import PureInlineArtists from "./PureInlineArtists"
-import { useBeforeLeave } from "@solidjs/router"
 
 type PlaylistCardProps = {
     playlist: Playlist
 }
 
 export default function PlaylistCard(props: PlaylistCardProps) {
-    useBeforeLeave
     return (
         <a
             href={`/playlist/${props.playlist.id}`}
