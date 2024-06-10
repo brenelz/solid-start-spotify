@@ -18,7 +18,7 @@ export default function PageHeader() {
         <a
           target="_blank"
           aria-label={"github repository"}
-          href="#"
+          href="https://github.com/brenelz/solid-start-spotify"
           class="text-gray-200 hover:text-white"
         >
           <AiOutlineGithub class="h-7 w-7" />
