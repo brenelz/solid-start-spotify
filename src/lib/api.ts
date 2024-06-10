@@ -1,8 +1,8 @@
-import { action, cache, redirect } from "@solidjs/router";
+import { action, cache, redirect, reload } from "@solidjs/router";
 import { eq } from "drizzle-orm";
 import { db, playlistsTable, songsTable, usersTable } from "./db";
 import { colors } from "./colors";
-import { playlists } from "./data";
+import { playlists, songs } from "./data";
 
 export const getUser = cache(async () => {
     'use server';
@@ -48,7 +48,7 @@ export const addPlaylist = action(async () => {
         colorAccent: randomPlaylist.color.accent,
         colorDark: randomPlaylist.color.dark,
         cover: randomPlaylist.cover,
-        artists: randomPlaylist.artists
+        artists: randomPlaylist.artists.join(',')
     })
 }, "add-playlist");
 
@@ -59,3 +59,28 @@ export const deletePlaylist = action(async (id: number) => {
 
     return redirect('/');
 }, "delete-playlist");
+
+export const addSong = action(async (playlistId: number) => {
+    "use server";
+
+    const randomSong = songs[songs.length * Math.random() << 0]
+
+    await db.insert(songsTable).values({
+        playlistId,
+        title: randomSong.title,
+        image: randomSong.image,
+        artists: randomSong.artists.join(','),
+        album: randomSong.album,
+        duration: randomSong.duration
+    })
+
+    return reload({ revalidate: getSongs.key })
+}, "add-song");
+
+export const deleteSong = action(async (songId: number) => {
+    "use server";
+
+    await db.delete(songsTable).where(eq(songsTable.id, songId));
+
+    return reload({ revalidate: getSongs.key })
+}, "delete-song");

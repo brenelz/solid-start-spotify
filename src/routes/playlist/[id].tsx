@@ -61,7 +61,6 @@ export default function Playlist(props: RouteSectionProps) {
             <LikeButton size="md" />
             <Show when={songs()?.length! === 0}>
               <button onClick={() => deletePlaylistAction(playlist()!.id)}>
-
                 <BiRegularNoEntry class="h-8 w-8" />
               </button>
             </Show>

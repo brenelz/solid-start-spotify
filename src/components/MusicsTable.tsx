@@ -1,7 +1,8 @@
 import { Index } from "solid-js";
 import { WiTime3 } from "solid-icons/wi";
-import { createAsync } from "@solidjs/router";
-import { getSongs } from "~/lib/api";
+import { createAsync, useAction } from "@solidjs/router";
+import { addSong, deleteSong, getSongs } from "~/lib/api";
+import { BiRegularNoEntry } from "solid-icons/bi";
 
 type MusicsTableProps = {
   playlistId: number;
@@ -9,6 +10,9 @@ type MusicsTableProps = {
 
 export default function MusicsTable(props: MusicsTableProps) {
   const songs = createAsync(() => getSongs(props.playlistId));
+  const addSongAction = useAction(addSong);
+  const deleteSongAction = useAction(deleteSong);
+
   return (
     <>
       <table class="table-auto text-left min-w-full divide-y-2 divide-gray-500/30">
@@ -56,6 +60,10 @@ export default function MusicsTable(props: MusicsTableProps) {
                   </a>
                 </td>
                 <td class="whitespace-nowrap px-4 py-2 text-right">
+                  <button class="mr-4 align-middle" onClick={() => deleteSongAction(song()!.id)}>
+                    <BiRegularNoEntry class="h-4 w-4" />
+                  </button>
+
                   {song().duration}
                 </td>
               </tr>
@@ -63,6 +71,9 @@ export default function MusicsTable(props: MusicsTableProps) {
           </Index>
         </tbody>
       </table>
+      <p class="mt-4">
+        <button onClick={() => addSongAction(props.playlistId)} class="p-2 bg-green-500 shadow-md shadow-black/40 flex items-center justify-center text-black font-semibold">Add Song</button>
+      </p >
     </>
   )
 }
