@@ -1,10 +1,17 @@
-import { drizzle } from 'drizzle-orm/better-sqlite3';
-import Database from 'better-sqlite3';
+// import { drizzle } from 'drizzle-orm/better-sqlite3';
+// import Database from 'better-sqlite3';
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
+import { drizzle } from 'drizzle-orm/libsql';
+import { createClient } from '@libsql/client';
 
-const sqlite = new Database('./db/sqlite.db');
+const client = createClient({
+    url: process.env.TURSO_CONNECTION_URL!,
+    authToken: process.env.TURSO_AUTH_TOKEN!,
+});
 
-export const db = drizzle(sqlite);
+// const client = new Database('./db/sqlite.db');
+
+export const db = drizzle(client);
 
 export const usersTable = sqliteTable('users', {
     id: integer('id', { mode: 'number' }).primaryKey({ autoIncrement: true }),
