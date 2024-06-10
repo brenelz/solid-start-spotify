@@ -1,4 +1,4 @@
-import { AiOutlineGithub, AiOutlineHome } from "solid-icons/ai";
+import { AiOutlineGithub } from "solid-icons/ai";
 import { FaSolidChevronLeft } from "solid-icons/fa";
 
 export default function PageHeader() {

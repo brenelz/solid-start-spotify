@@ -8,7 +8,7 @@ import { Layout } from "~/layouts/Layout";
 import { getPlaylists } from "~/lib/api";
 
 export default function Home() {
-  const data = createAsyncStore(() => getPlaylists());
+  const playlists = createAsyncStore(() => getPlaylists());
   return (
     <Layout>
       <Title>Home | SolidStart Spotify</Title>
@@ -23,7 +23,7 @@ export default function Home() {
           <div
             class="grid gap-y-4 gap-x-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 mt-6"
           >
-            {data()?.playlists.map((playlist) => <PlaylistItemCard playlist={playlist} />)}
+            {playlists()?.map((playlist) => <PlaylistItemCard playlist={playlist} />)}
           </div>
         </div>
         <div
@@ -34,7 +34,7 @@ export default function Home() {
       <div class="px-6 relative z-10 mt-4">
         <h2 class="text-2xl font-bold">Made for you</h2>
         <div class="flex flex-wrap mt-6 gap-4">
-          {data()?.morePlaylists.map((playlist) => <PlaylistCard playlist={playlist} />)}
+          {playlists()?.map((playlist) => <PlaylistCard playlist={playlist} />)}
         </div>
       </div>
     </Layout>

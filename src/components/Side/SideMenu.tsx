@@ -3,10 +3,10 @@ import SideItemCard from "./SideItemCard";
 import { AiOutlineHome, AiOutlineSearch } from "solid-icons/ai";
 import { BsCollectionPlay } from "solid-icons/bs";
 import { createAsync } from "@solidjs/router";
-import { getSidebarPlaylists } from "~/lib/api";
+import { getPlaylists } from "~/lib/api";
 
 export default function SideMenu() {
-  const sidebarPlaylists = createAsync(() => getSidebarPlaylists());
+  const sidebarPlaylists = createAsync(() => getPlaylists());
   return (
     <div class="flex flex-col flex-1 gap-2">
       <div class="bg-zinc-900 rounded-lg">
@@ -20,7 +20,7 @@ export default function SideMenu() {
         <ul>
           <SideMenuItem href="#">
             <BsCollectionPlay class="h-6 w-6" />
-            Your library
+            Your Library
           </SideMenuItem>
         </ul>
         <ul class="pl-2">

@@ -10,7 +10,7 @@ export default function PlaylistItemCard(props: PlaylistItemCardProps) {
     <a
       href={`/playlist/${props.playlist.id}`}
       class="playlist-item flex group relative transition-all duration-300 overflow-hidden items-center gap-5 rounded-md shadow-lg hover:shadow-xl outline-none bg-zinc-500/30 hover:bg-zinc-500/50 focus:bg-zinc-500/50"
-      data-color={props.playlist.color.dark}
+      data-color={props.playlist.colorDark}
       style={{ "view-transition-name": `playlist_${props.playlist.id}_box` }}
     >
       <div class="h-20 w-20">

@@ -1,13 +1,15 @@
 import { colors } from "./colors";
 
 export interface Playlist {
-  id: string;
+  id: number;
   title: string;
-  color: (typeof colors)[keyof typeof colors];
+  colorAccent: string;
+  colorDark: string;
   cover: string;
-  artists: string[];
+  artists: string;
 }
 
+/*
 export const playlists: Playlist[] = [
   {
     id: "1",
@@ -77,7 +79,7 @@ export const allPlaylists = [
   ...playlists,
   ...morePlaylists,
   ...sidebarPlaylists,
-];
+];*/
 
 interface Song {
   id: string;
@@ -87,6 +89,7 @@ interface Song {
   album: string;
   duration: string;
 }
+/*
 const songScale = "w_40,h_40,c_scale";
 export const songs: Song[] = [
   {
@@ -161,12 +164,6 @@ export const songs: Song[] = [
     album: "Camila",
     duration: "3:37",
   },
-  {
-    id: "10",
-    title: "Radioactive",
-    image: `https://res.cloudinary.com/dp3ppkxo5/image/upload/${songScale}/v1693776176/spotify-astro/song_10_sz0cib.jpg`,
-    artists: ["Imagine Dragons"],
-    album: "Night Visions",
-    duration: "3:07",
-  },
 ];
+
+*/

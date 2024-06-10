@@ -1,25 +1,33 @@
-import { cache } from "@solidjs/router";
-import { allPlaylists, morePlaylists, playlists, sidebarPlaylists, songs } from "./data";
+import { action, cache, reload } from "@solidjs/router";
+
+import { eq } from "drizzle-orm";
+import { db, playlistsTable, songsTable, usersTable } from "./db";
+
+export const getUser = cache(async () => {
+    'use server';
+    const users = await db.select().from(usersTable).where(eq(usersTable.id, 1))
+
+    return users[0];
+}, "get-user");
+
+export const getPlaylistById = cache(async (id: number) => {
+    "use server";
+
+    const playlists = await db.select().from(playlistsTable).where(eq(playlistsTable.id, id))
+
+    return playlists[0];
+}, "get-playlists");
 
 export const getPlaylists = cache(async () => {
     "use server";
-    return {
-        playlists,
-        morePlaylists
-    }
-}, "get-playlists");
 
-export const getPlaylistById = cache(async (id: string) => {
-    "use server";
-    return allPlaylists.find((playlist) => playlist.id === id);
-}, "get-playlists");
+    const user = await getUser();
 
-export const getSidebarPlaylists = cache(async () => {
-    "use server";
-    return sidebarPlaylists;
+    return db.select().from(playlistsTable).where(eq(playlistsTable.userId, user.id))
 }, "get-sidebar-playlists");
 
-export const getSongs = cache(async () => {
+export const getSongs = cache(async (playlistId: number) => {
     "use server";
-    return songs;
+
+    return db.select().from(songsTable).where(eq(songsTable.playlistId, playlistId))
 }, "get-songs");

@@ -1,5 +1,4 @@
 import { Playlist } from "~/lib/data"
-import PureInlineArtists from "../PureInlineArtists"
 
 type SideitemCardProps = {
   playlist: Playlist
@@ -10,7 +9,7 @@ export default function SideItemCard(props: SideitemCardProps) {
     <a
       href={`/playlist/${props.playlist.id}`}
       class="playlist-item flex group relative p-2 overflow-hidden items-center gap-5 rounded-md shadow-lg hover:shadow-xl outline-none hover:bg-zinc-500/10 focus:bg-zinc-500/50"
-      data-color={props.playlist.color.dark}
+      data-color={props.playlist.colorDark}
     >
       <div class="h-12 w-12 flex-none">
         <img
@@ -24,7 +23,7 @@ export default function SideItemCard(props: SideitemCardProps) {
           {props.playlist.title}
         </div>
         <div class="text-gray-400 text-sm truncate flex-1">
-          <PureInlineArtists artists={props.playlist.artists} />
+          {props.playlist.artists}
         </div>
       </div>
     </a>

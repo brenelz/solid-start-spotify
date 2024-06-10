@@ -1,7 +1,7 @@
 import { Title } from "@solidjs/meta";
 import { RouteSectionProps, createAsync } from "@solidjs/router";
+import { Show } from "solid-js";
 import DotsButton from "~/components/DotsButton";
-import InlineArtists from "~/components/InlineArtists";
 import LikeButton from "~/components/LikeButton";
 import MusicsTable from "~/components/MusicsTable";
 import PageHeader from "~/components/PageHeader";
@@ -10,7 +10,7 @@ import { Layout } from "~/layouts/Layout"
 import { getPlaylistById } from "~/lib/api";
 
 export default function Playlist(props: RouteSectionProps) {
-  const playlist = createAsync(() => getPlaylistById(props.params.id))
+  const playlist = createAsync(() => getPlaylistById(+props.params.id))
 
   return (
     <Layout>
@@ -41,7 +41,7 @@ export default function Playlist(props: RouteSectionProps) {
             </div>
             <div class="flex-1 flex items-end">
               <div class="text-sm">
-                <InlineArtists artists={playlist()?.artists || []} />
+                {playlist()?.artists}
                 <div class="mt-1">
                   <span class="font-semibold">58 likes</span>, 83 musics, <span
                     class="text-gray-300">about 3h 15min</span
@@ -60,12 +60,14 @@ export default function Playlist(props: RouteSectionProps) {
             <DotsButton />
           </div>
           <div class="px-6 pt-4">
-            <MusicsTable />
+            <Show when={playlist()}>
+              <MusicsTable playlistId={playlist()!.id} />
+            </Show>
           </div>
         </div >
         <div
           class="absolute h-screen inset-0 z-[-1] bg-gradient-to-b from-context"
-          style={`--context-color:${playlist()?.color.accent}`}
+          style={`--context-color:${playlist()?.colorAccent}`}
         >
           <img
             src={playlist()?.cover}
