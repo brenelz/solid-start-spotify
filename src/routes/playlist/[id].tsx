@@ -1,5 +1,5 @@
 import { Title } from "@solidjs/meta";
-import { RouteSectionProps, createAsync, useAction } from "@solidjs/router";
+import { RouteDefinition, RouteSectionProps, createAsync, useAction } from "@solidjs/router";
 import { BiRegularNoEntry } from "solid-icons/bi";
 import { Show } from "solid-js";
 import LikeButton from "~/components/LikeButton";
@@ -8,6 +8,13 @@ import PageHeader from "~/components/PageHeader";
 import PlayButton from "~/components/PlayButton";
 import { Layout } from "~/layouts/Layout"
 import { deletePlaylist, getPlaylistById, getSongs } from "~/lib/api";
+
+export const route = {
+  load: ({ params }) => {
+    void getPlaylistById(+params.id);
+    void getSongs(+params.id);
+  }
+} satisfies RouteDefinition;
 
 export default function Playlist(props: RouteSectionProps) {
   const playlist = createAsync(() => getPlaylistById(+props.params.id));

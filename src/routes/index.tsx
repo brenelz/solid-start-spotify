@@ -1,11 +1,17 @@
 import { Title } from "@solidjs/meta";
-import { createAsync } from "@solidjs/router";
+import { RouteDefinition, createAsync } from "@solidjs/router";
 import GreeetingTitle from "~/components/GreetingTitle";
 import PageHeader from "~/components/PageHeader";
 import PlaylistCard from "~/components/PlaylistCard";
 import PlaylistItemCard from "~/components/PlaylistItemCard";
 import { Layout } from "~/layouts/Layout";
 import { getPlaylists } from "~/lib/api";
+
+export const route = {
+  load: () => {
+    void getPlaylists();
+  }
+} satisfies RouteDefinition;
 
 export default function Home() {
   const playlists = createAsync(() => getPlaylists());
