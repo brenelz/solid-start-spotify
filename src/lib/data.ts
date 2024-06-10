@@ -9,8 +9,7 @@ export interface Playlist {
   artists: string;
 }
 
-/*
-export const playlists: Playlist[] = [
+export const playlists = [
   {
     id: "1",
     title: "Electronic Party",
@@ -79,7 +78,7 @@ export const allPlaylists = [
   ...playlists,
   ...morePlaylists,
   ...sidebarPlaylists,
-];*/
+];
 
 interface Song {
   id: string;
@@ -89,7 +88,7 @@ interface Song {
   album: string;
   duration: string;
 }
-/*
+
 const songScale = "w_40,h_40,c_scale";
 export const songs: Song[] = [
   {
@@ -165,5 +164,3 @@ export const songs: Song[] = [
     duration: "3:37",
   },
 ];
-
-*/

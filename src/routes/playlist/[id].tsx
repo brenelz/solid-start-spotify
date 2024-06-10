@@ -1,16 +1,18 @@
 import { Title } from "@solidjs/meta";
-import { RouteSectionProps, createAsync } from "@solidjs/router";
+import { RouteSectionProps, createAsync, useAction } from "@solidjs/router";
+import { BiRegularNoEntry } from "solid-icons/bi";
 import { Show } from "solid-js";
-import DotsButton from "~/components/DotsButton";
 import LikeButton from "~/components/LikeButton";
 import MusicsTable from "~/components/MusicsTable";
 import PageHeader from "~/components/PageHeader";
 import PlayButton from "~/components/PlayButton";
 import { Layout } from "~/layouts/Layout"
-import { getPlaylistById } from "~/lib/api";
+import { deletePlaylist, getPlaylistById, getSongs } from "~/lib/api";
 
 export default function Playlist(props: RouteSectionProps) {
-  const playlist = createAsync(() => getPlaylistById(+props.params.id))
+  const playlist = createAsync(() => getPlaylistById(+props.params.id));
+  const deletePlaylistAction = useAction(deletePlaylist);
+  const songs = createAsync(() => getSongs(+props.params.id));
 
   return (
     <Layout>
@@ -57,7 +59,12 @@ export default function Playlist(props: RouteSectionProps) {
             <PlayButton size="lg" />
             <div class="ml-4" style={{ "view-transition-name": `playlist_${playlist()?.id}_play` }}></div>
             <LikeButton size="md" />
-            <DotsButton />
+            <Show when={songs()?.length! === 0}>
+              <button onClick={() => deletePlaylistAction(playlist()!.id)}>
+
+                <BiRegularNoEntry class="h-8 w-8" />
+              </button>
+            </Show>
           </div>
           <div class="px-6 pt-4">
             <Show when={playlist()}>

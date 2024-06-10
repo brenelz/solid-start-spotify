@@ -1,5 +1,5 @@
 import { Title } from "@solidjs/meta";
-import { createAsyncStore } from "@solidjs/router";
+import { createAsync } from "@solidjs/router";
 import GreeetingTitle from "~/components/GreetingTitle";
 import PageHeader from "~/components/PageHeader";
 import PlaylistCard from "~/components/PlaylistCard";
@@ -8,7 +8,7 @@ import { Layout } from "~/layouts/Layout";
 import { getPlaylists } from "~/lib/api";
 
 export default function Home() {
-  const playlists = createAsyncStore(() => getPlaylists());
+  const playlists = createAsync(() => getPlaylists());
   return (
     <Layout>
       <Title>Home | SolidStart Spotify</Title>
